@@ -196,7 +196,6 @@ var auditTask = function(taskEl) {
   }
 };
 
-
 //creating sortable columns
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
@@ -267,8 +266,6 @@ $("#trash").droppable({
   }
 });
 
-
-
 // remove all tasks
 $("#remove-tasks").on("click", function () {
   for (var key in tasks) {
@@ -277,6 +274,13 @@ $("#remove-tasks").on("click", function () {
   }
   saveTasks();
 })
+
+// automated task auditing
+setInterval(function () {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);
 
 // load tasks for the first time
 loadTasks();
